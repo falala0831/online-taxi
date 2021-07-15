@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+</head>
+<body>
+<div class="layui-container" style="width: 800px;height: 600px;margin-top: 0px;padding-top: 60px;">
+
+    <table class="layui-hide" id="test" lay-filter="test"></table>
+
+
+    <!--模仿bootstrap的模态框-->
+    <div id="motaikunag" style="display: none;">
+        <form class="layui-form" action="">
+            <input name="id" type="hidden" id="id"/>
+            <div class="layui-form-item">
+                <label class="layui-form-label">出发地</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="departure" id="departure" required  lay-verify="required" placeholder="请输入出发地" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">目的地</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="destination" id="destination" required lay-verify="required" placeholder="请输入目的地" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户名</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="name" id="name" required lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+</div>
+
+<!--<a class="layui-btn layui-btn-xs" lay-event="update">修改</a>-->
+
+</body>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">取消</a>
+</script>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script  src="layui/layui.js" charset="utf-8"></script>
+<script>
+    /*菜单列表*/
+    layui.use('table', function(){
+        var table = layui.table;
+
+        table.render({
+            elem: '#test'
+            ,url:'/client/demand/getPassengerDemand'
+            ,title: '约车需求'
+            ,cols: [
+                [
+                    {field:'id', width:100, title: '编号', sort: true}
+                    ,{field:'departure', width:100, title: '出发地'}
+                    ,{field:'destination', width:100, title: '目的地'}
+                    ,{field:'name', width:200, title: '乘客名'}
+                    ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:130}
+                ]
+            ]
+            ,page: true
+        });
+
+        //监听行工具事件
+        table.on('tool(test)', function(obj){
+            var data = obj.data;
+            // if(obj.event === 'update'){
+            //     /*查询修改菜品所需信息*/
+            //     queryMenu(data.id);
+            //     //菜品修改模态框
+            //     var update = layui.use(['layer'],function () {
+            //         var layer = layui.layer,$=layui.$;
+            //         layer.open({
+            //             type:1,                     //类型
+            //             area:['500px','500px'],     //定义宽和高
+            //             title:'约车需求修改',           //题目
+            //             content: $('#motaikunag'), //打开的内容
+            //             btn: ['确认修改', '取消'],
+            //             yes: function (index, layero) {
+            //                 $.ajax({
+            //                     url:"/client/demand/update",
+            //                     type:"POST",
+            //                     data:$("#motaikunag form").serialize(),
+            //                     success : function (data) {
+            //                         alert(data.extend.msg);
+            //                         window.location.reload();
+            //                         layer.close(update);
+            //                     }
+            //                 });
+            //             }
+            //         });
+            //     });
+            // }else
+                if(obj.event === 'del'){
+                layer.confirm('确定要删除吗？', function(index){
+                    $.ajax({
+                        url: "/client/demand/deleteById/"+data.id,
+                        type: "get",
+                        success: function(){
+                            alert("删除成功");
+                            window.location.href="demand_add.html";
+                        }
+                    });
+                    layer.close(demand_manage);
+                })
+            }
+        });
+    });
+
+
+    /*查询修改菜品所需信息*/
+    // function queryMenu(id) {
+    //     layui.use('form', function () {
+    //         var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+    //         $("#motaikunag select").empty();
+    //         /*查询单个菜品信息*/
+    //         $.ajax({
+    //             url: "/client/demand/findById/" + id,
+    //             type: "GET",
+    //             success: function (result) {
+    //                 var demand = result.extend.Demand;
+    //                 $("#id").val(demand.id);
+    //                 $("#departure").val(demand.departure);
+    //                 $("#price").val(demand.price);
+    //                 $("#destination").val(demand.destination);
+    //                 form.render();
+    //             }
+    //         });
+    //     });
+    // }
+
+</script>
+<script>
+    //二级菜单联动
+    layui.use('element', function(){
+        var element = layui.element;
+
+    });
+</script>

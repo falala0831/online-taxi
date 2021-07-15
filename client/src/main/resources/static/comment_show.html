@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+</head>
+<body>
+<div class="layui-container" style="width: 960px;height: 600px;margin-top: 0px;padding-top: 60px;">
+
+    <table class="layui-hide" id="test" lay-filter="test"></table>
+</div>
+</body>
+</html>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="/layui/layui.js" charset="utf-8"></script>
+<script>
+    /*获取评论信息*/
+    layui.use('table', function(){
+        var table = layui.table;
+
+        table.render({
+            elem: '#test'
+            ,url:'/client/order/getComments'
+            ,title: '评论列表'
+            ,cols: [
+                [
+                    {field:'id', width:100, title: '编号', sort: true}
+                    ,{field:'name', width:200, title: '司机名'}
+                    ,{field:'content', width:200, title: '评论内容'}
+                ]
+            ]
+            ,page: true
+        });
+    });
+</script>
+<script>
+    //二级菜单联动
+    layui.use('element', function(){
+        var element = layui.element;
+    });
+</script>

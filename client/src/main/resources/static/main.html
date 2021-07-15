@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>乘客端</title>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+</head>
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+
+        <!-- 顶部菜单开始 -->
+        <div class="layui-header">
+            <div class="layui-logo">乘客端</div>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="/images/img.jpeg" class="layui-nav-img">
+                        <span id="ausername"></span>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="/client/account/logout/passenger">退出系统</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+        <!-- 顶部菜单结束 -->
+
+
+        <!-- 左侧菜单开始 -->
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">约车</a>
+                        <dl class="layui-nav-child">
+                            <dd class="layui-this"><a id="demand_add" href="javascript:void(0)">添加约车需求</a></dd>
+                            <dd><a id="demand_manage" href="javascript:void(0)">查询/取消约车</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">订单</a>
+                        <dl class="layui-nav-child">
+                            <dd><a id="order_handler" href="javascript:void(0)">订单处理</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">评价</a>
+                        <dl class="layui-nav-child">
+                            <dd><a id="comment" href="javascript:void(0)">查询评价</a></dd>
+<!--                            <dd><a id="comment_add" href="javascript:void(0)">添加评价</a></dd>-->
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 左侧菜单结束 -->
+
+
+        <!-- 主体开始 -->
+        <div class="layui-body">
+            <iframe src="/demand_add.html" style="width: 100%;height: 100%;border: 0px"></iframe>
+        </div>
+        <!-- 主体结束 -->
+
+
+        <!-- 底部开始 -->
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+            © web后端期末考核设计
+        </div>
+    <!-- 底部结束 -->
+
+    </div>
+</body>
+</html>
+
+<script type="text/javascript" src="/layui/layui.js"></script>
+<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    /*获取名称*/
+    $.ajax({
+        url:"/client/account/getUsername",
+        type:"GET",
+        success:function (result) {
+            $("#ausername").text(result.extend.passenger.username
+                + " " +result.extend.level)
+        }
+    });
+
+
+    $(function () {
+        $("#demand_manage").click(function(){
+            $("iframe").attr("src","/demand_manage.html");
+        });
+        $("#demand_add").click(function(){
+            $("iframe").attr("src","/demand_add.html");
+        });
+        $("#order_handler").click(function(){
+            $("iframe").attr("src","/order_passenger.html");
+        });
+        $("#comment").click(function(){
+            $("iframe").attr("src","/comment.html");
+        });
+    })
+</script>
+
+<script>
+    //二级菜单联动
+    layui.use('element', function(){
+        var element = layui.element;
+    });
+</script>

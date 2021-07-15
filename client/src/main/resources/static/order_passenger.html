@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
+</head>
+<body class="layui-layout-body">
+<div class="layui-container" style="margin-top: 50px;width: 750px;width: 1070px">
+
+    <table class="layui-hide" id="test" style="width: 300px" lay-filter="test"></table>
+</div>
+</body>
+</html>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="send">点击付款</a>
+</script>
+<script src="/static/layui/layui.js" charset="utf-8"></script>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+
+        table.render({
+            elem: '#test'
+            ,url:'/client/order/findByPassenger'
+            ,title: '订单列表'
+            ,cols: [
+                [
+                    {field:'id', width:100, title: '编号', sort: true}
+                    , {
+                    field: 'departure', width: 100, title: '出发地', templet: function (data) {
+                        return data.departure
+                    }
+                }
+                    , {
+                    field: 'destination', width: 100, title: '目的地', templet: function (data) {
+                        return data.destination
+                    }
+                }
+                    ,{field:'passenger', width:100, title: '乘客名',templet:function(data){
+                        return data.passenger
+                    }
+                }
+                    ,{field:'driver', width:100, title: '司机名',templet:function(data){
+                        return data.driver
+                    }
+                }
+                    ,{field:'price', width:100, title: '价格',templet:function(data){
+                        return data.price
+                    }
+                }
+                    , {fixed: 'right', title:'操作', toolbar: '#barDemo', width:90}
+                ]
+            ]
+            ,page: true
+        });
+
+        //监听行工具事件
+        table.on('tool(test)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'send'){
+                $.ajax({
+                    url: "/client/order/updateState/"+data.id,
+                    type:"GET",
+                    success:function (result) {
+                        alert(result.msg);
+                        window.location.href="/comment_add.html";
+                    }
+                });
+            }
+        });
+    });
+</script>
+<script>
+    //二级菜单联动
+    layui.use('element', function(){
+        var element = layui.element;
+    });
+</script>

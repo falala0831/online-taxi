@@ -1,0 +1,23 @@
+server:
+  port: 9901
+spring:
+  application:
+    name: order
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/onlinetaxi?serverTimezone=Asia/Shanghai&useSSL=true&useUnicode=true&characterEncoding=utf8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    instance-id: order-9901
+    prefer-ip-address: true
+
+#mybatis:
+#  mapper-locations: classpath:/mapping/*.xml
+#  type-aliases-package: com.bigbone.common.entity

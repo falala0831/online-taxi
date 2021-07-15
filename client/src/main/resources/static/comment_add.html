@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+</head>
+<body>
+<div class="layui-container" style="margin-top: 50px;">
+
+    <div class="layui-container" style="width: 500px;height: 330px;padding-top: 60px;">
+        <form class="layui-form" action="/client/order/addComment" method="post">
+            <div class="layui-form-item">
+                <label class="layui-form-label">司机名：</label>
+                <div class="layui-inline">
+                    <input type="text" name="name" lay-verify="required" placeholder="请输入司机名" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">评价内容：</label>
+                <div class="layui-inline">
+                    <input type="text" name="content" lay-verify="required" placeholder="请输入评价内容" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <button class="layui-btn" lay-submit="" lay-filter="demo2" style="margin-left: 160px;">评价</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="/layui/layui.js" charset="utf-8"></script>
+<script src="js/jquery-3.3.1.min.js"></script>
+</body>
+</html>

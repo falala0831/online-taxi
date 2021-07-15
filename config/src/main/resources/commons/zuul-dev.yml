@@ -1,0 +1,17 @@
+server:
+  port: 9527
+spring:
+  application:
+    name: zuul
+
+eureka:
+  client:
+    service-url:
+      # 表示eureka client发送心跳给server端的频率。如果在leaseExpirationDurationInSeconds后server端没收到client的心跳，则摘除该instance。默认30s
+      lease-renewal-interval-in-seconds: 5
+      # 表示eureka server至上一次收到client的心跳之后，等待下一次心跳的超时时间，在这个时间内若没收到下一次心跳，则将移除该instance。默认90s
+      lease-expiration-duration-in-seconds: 10
+      defaultZone: http://localhost:9900/eureka/
+  instance:
+    instance-id: zuul-9527
+    prefer-ip-address: true

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+</head>
+<body>
+<div class="layui-container" style="width: 960px;height: 600px;margin-top: 0px;padding-top: 60px;">
+
+    <div style="margin-left: 460px; width: 300px;">
+        <a href="index.html">首页</a>&nbsp;&nbsp;|&nbsp;&nbsp;欢迎回来！<a href="order.html" id="nickname"></a><a href="/client/account/logout/user">&nbsp;&nbsp;&nbsp;<button class="layui-btn layui-btn-warm layui-btn-radius">退出</button></a>
+    </div>
+
+    <table class="layui-hide" id="test" lay-filter="test"></table>
+
+
+</div>
+</body>
+</html>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="/layui/layui.js" charset="utf-8"></script>
+<script>
+    /*获取名称*/
+    $.ajax({
+        url:"/client/account/getUsername",
+        type:"GET",
+        success:function (result) {
+            $("#nickname").text(result.extend.driver.username)
+        }
+    });
+    /*获取订单信息*/
+    layui.use('table', function(){
+        var table = layui.table;
+
+        table.render({
+            elem: '#test'
+            ,url:'/client/order/findByDriver'
+            ,title: '订单列表'
+            ,cols: [
+                [
+                    {field:'id', width:100, title: '编号', sort: true}
+                    , {
+                    field: 'departure', width: 100, title: '出发地', templet: function (data) {
+                        return data.departure
+                    }
+                }
+                    ,{field:'destination', width:100, title: '目的地',templet:function(data){
+                        return data.destination
+                    }
+                }
+                    , {
+                    field: 'passenger', width: 100, title: '乘客名', templet: function (data) {
+                        return data.passenger
+                    }
+                }
+                    , {
+                    field: 'driver', width: 100, title: '司机名', templet: function (data) {
+                        return data.driver
+                    }
+                }
+                    ,{field:'price', width:100, title: '价格',templet:function(data){
+                        return data.price
+                    }
+                }
+                    ,{field:'state', width:200, title: '订单状态',templet:function(data){
+                        var result = "";
+                        if (data.state==0){
+                            result = "完成接送，等待付款";
+                        }else if (data.state==1){
+                            result = "已付款";
+                        }
+                        return result
+                    }
+                }
+                ]
+            ]
+            ,page: true
+        });
+    });
+</script>
+<script>
+    //二级菜单联动
+    layui.use('element', function(){
+        var element = layui.element;
+    });
+</script>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+</head>
+<body>
+<div class="layui-container" style="margin-top: 50px;">
+
+    <div class="layui-container" style="width: 500px;height: 330px;padding-top: 60px;">
+        <form class="layui-form" action="/client/order/findComments" method="post">
+            <div class="layui-form-item">
+                <label class="layui-form-label">司机名：</label>
+                <div class="layui-inline">
+                    <input type="text" name="name" lay-verify="required" placeholder="请输入司机名" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <button class="layui-btn" lay-submit="" lay-filter="demo2" style="margin-left: 160px;">查询</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="/layui/layui.js" charset="utf-8"></script>
+<script src="js/jquery-3.3.1.min.js"></script>
+</body>
+<!--<script>-->
+<!--    layui.use(['form','jquery'],function(){-->
+<!--        var form = layui.form-->
+<!--        $ = layui.jquery ;-->
+<!--        form.on('submit(demo2)',function(data){-->
+<!--            var obj = data.obj;-->
+<!--            $.ajax({-->
+<!--                url:'/client/order/findComments/' + obj.name,-->
+<!--                type:'get',-->
+<!--                dataType:'json',-->
+<!--                success:function(data){-->
+<!--                    console.log("查询成功")-->
+<!--                }-->
+<!--            })-->
+<!--            return false;-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+</html>
